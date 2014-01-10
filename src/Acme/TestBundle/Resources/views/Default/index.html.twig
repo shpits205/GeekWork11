@@ -1,0 +1,59 @@
+
+{% block body %}
+    <div class="navbar navbar-default navbar-fixed-top upper-head">
+        <div class="pull-left navbar-brand">{{ 'Simple guestbook'|trans }}</div>
+        <div class="pull-right navbar-brand">{{ 'Simple guestbook'|trans }}</div>
+        <div class="clearfix"></div>
+        <div class="container">
+            {{ form_start(form) }}
+            <div>
+                {{ form_label(form.name, label|default(null),{ 'class': 'sr-only' }) }}
+                {{ form_widget(form.name, { 'attr': {'placeholder': 'input name', 'class': 'input-xxlarge' }}) }}
+            </div>
+
+            <div>
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+            <div>
+                {{ form_label(form.message) }}
+                {{ form_widget(form.message) }}
+            </div>
+            <div class="clearfix">
+                <div class="col-sm-5">{{ form_errors(form.name) }}</div>
+                <div class="col-sm-5">{{ form_errors(form.email) }}</div>
+                <div class="col-sm-2">&nbsp;</div>
+                <div class="col-sm-12">{{ form_row(form.message) }}</div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="well">
+            {% for post in pagination %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            {{ post.name }} ({{ post.email }})
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        {{ post.message|nl2br }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="text-center">
+            <div class="pull-left navbar-brand">{{ 'Simple guestbook'|trans }}</div>
+            <div class="pull-right navbar-brand">{{ 'Simple guestbook'|trans }}</div>
+            <div class="pgn_navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
